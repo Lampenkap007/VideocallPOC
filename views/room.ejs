@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <script>
+    const ROOM_ID = "<%= roomId %>"
+  </script>
+  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="script.js" defer></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="menu">
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="50" viewBox="0 0 466.12 395.511">
+        <g id="Logo" transform="translate(0 0.011)">
+          <path id="Path_1" data-name="Path 1"
+            d="M1189.19,630.16q-35,0-62.25-15.25a108.49,108.49,0,0,1-42.5-42.5q-15.26-27.24-15.25-62.25,0-11.49,7.5-18.75a25.61,25.61,0,0,1,18.5-7.25q11.5,0,18.75,7.25t7.25,18.75q0,21.51,8.75,38a65,65,0,0,0,24,25.75q15.25,9.26,35.25,9.25t35.5-9.25a64.471,64.471,0,0,0,24.25-25.75q8.74-16.5,8.75-38V260.66q0-11.49,7.25-18.75a24.76,24.76,0,0,1,18.25-7.25q11.5,0,19,7.25t7.5,18.75v249.5q0,35-15.5,62.25a110.679,110.679,0,0,1-42.5,42.5Q1224.69,630.17,1189.19,630.16Z"
+            transform="translate(-1069.19 -234.66)" fill="#fff" />
+          <path id="Path_2" data-name="Path 2"
+            d="M1528.31,241.49q-7-6.75-18.5-6.75h-226a25.61,25.61,0,0,0-18.5,7.25q-7.5,7.26-7.5,18.75V485.67c13.11-.57,26.28-.3,39.44.18q6.29,0,12.56.22V452.24h143.5q11.51,0,18.5-6.75t7-17.25q0-10.5-7-17.25t-18.5-6.75h-143.5V282.74h200q11.51,0,18.5-6.5t7-17Q1535.31,248.25,1528.31,241.49Z"
+            transform="translate(-1069.19 -234.66)" fill="#fff" />
+        </g>
+      </svg>
+      Logo</p>
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="40.479" height="45.877"
+        viewBox="0 0 40.479 45.877">
+        <path id="user_1_" data-name="user (1)"
+          d="M133.48,26.944a47.552,47.552,0,0,1,13.76,2.1,4.957,4.957,0,0,1,3.541,4.75V37.5a30.133,30.133,0,0,1-35.082,0V33.8a4.963,4.963,0,0,1,3.554-4.752A48.943,48.943,0,0,1,133.48,26.944Zm-.051-24.29A9.256,9.256,0,0,1,142.477,10a5.28,5.28,0,0,1-2.923.753,5.727,5.727,0,0,1-3.573-1.142,8.787,8.787,0,0,0-10,.005,6.547,6.547,0,0,1-2.1.99,9.275,9.275,0,0,1,9.165-7.95Zm14.6,23.813a50.685,50.685,0,0,0-7.753-1.711,11.929,11.929,0,0,0,5.106-9.769h-2.7a9.266,9.266,0,0,1-9.256,9.256h-.378a9.266,9.266,0,0,1-9.256-9.256V13.362a8.4,8.4,0,0,0,3.632-1.468A5.717,5.717,0,0,1,131,10.749a5.656,5.656,0,0,1,3.541,1.139,8.309,8.309,0,0,0,5.014,1.56,8.436,8.436,0,0,0,5.122-1.638l.715-.453-.1-.845A11.957,11.957,0,0,0,133.429-.045h-.378A12.011,12.011,0,0,0,121.1,12.1v2.888a11.934,11.934,0,0,0,5.117,9.78,49.8,49.8,0,0,0-7.753,1.7A7.651,7.651,0,0,0,113,33.8v5.065l.54.4a32.837,32.837,0,0,0,39.4,0l.54-.4V33.8a7.646,7.646,0,0,0-5.448-7.33Z"
+          transform="translate(-113 0.045)" fill="#fff" fill-rule="evenodd" />
+      </svg>
+      Account</p>
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="40.479" height="48.839"
+        viewBox="0 0 40.479 48.839">
+        <path id="admin"
+          d="M166.873,11.207V25.6c0,10.744,9.517,15.909,17.162,20.06l.2.109.207-.109c7.644-4.151,17.162-9.316,17.162-20.06V11.207L184.238,3.025Zm17.366,37.633a1.46,1.46,0,0,1-.687-.175l-.888-.483C174.787,43.9,164,38.049,164,25.6V10.3a1.44,1.44,0,0,1,.824-1.3l18.8-8.857a1.42,1.42,0,0,1,1.221,0l18.8,8.857a1.441,1.441,0,0,1,.824,1.3V25.6c0,12.453-10.79,18.308-18.664,22.585l-.888.483a1.463,1.463,0,0,1-.689.175Zm11.882-13.93h-7.972l-2.33-2.327V30.451h-2.97v-2.97H180.72l-1.488-1.488c-.049,0-.1,0-.146,0a8.123,8.123,0,1,1,8.121-8.121c0,.049,0,.1,0,.144l8.917,8.92Zm-6.782-2.873h3.91v-3.91l-9.041-9.046.1-.948a5.238,5.238,0,1,0-5.223,4.99l1.2-.135,1.623,1.62h3.812v2.971h2.97v3.815Zm-7.972-14.08a2.155,2.155,0,1,1-2.155-2.155,2.155,2.155,0,0,1,2.155,2.155"
+          transform="translate(-164)" fill="#fff" fill-rule="evenodd" />
+      </svg>
+      Admin</p>
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="40.479" height="28.16"
+        viewBox="0 0 40.479 28.16">
+        <path id="dashboard"
+          d="M17.626,298.462a53.562,53.562,0,0,0,1.76,8.112,2.245,2.245,0,1,0,3.967-2.1A53.941,53.941,0,0,0,17.626,298.462Zm-.924-4.141c1.3,1.2,7.82,7.27,8.755,9.036a4.627,4.627,0,0,1-8.177,4.334c-.936-1.767-2.3-10.57-2.564-12.318a1.191,1.191,0,0,1,1.986-1.053Zm3.583-12.332a20.262,20.262,0,0,1,19.678,25l-.219.909H28.688v-2.381h9.155a17.861,17.861,0,1,0-35.417-3.291,18.13,18.13,0,0,0,.3,3.291H13V307.9H.824L.6,306.991a20.272,20.272,0,0,1,19.68-25Zm11.438,8.237,1.683,1.683-2.376,2.376L29.347,292.6Zm-22.879,0,2.376,2.376-1.683,1.683-2.376-2.376Zm12.63-4.245v3.362H19.093V285.98Z"
+          transform="translate(-0.045 -281.989)" fill="#fff" fill-rule="evenodd" />
+      </svg>
+      Dashboard</p>
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="40.479" height="38.098"
+        viewBox="0 0 40.479 38.098">
+        <path id="inbox"
+          d="M36.908,91.717H3.572a1.193,1.193,0,0,1-1.191-1.191V84.3l4.431,2.66H33.667L38.1,84.3v6.232A1.193,1.193,0,0,1,36.908,91.717ZM3.572,72.668H7.143V84.376L2.381,81.519v-7.66A1.193,1.193,0,0,1,3.572,72.668ZM9.525,84.574V58.381h21.43V84.574ZM36.908,72.668A1.193,1.193,0,0,1,38.1,73.859v7.66l-4.762,2.857V72.668Zm0-2.381H33.336V56H7.143V70.287H3.572A3.576,3.576,0,0,0,0,73.859V90.527A3.576,3.576,0,0,0,3.572,94.1H36.908a3.576,3.576,0,0,0,3.572-3.572V73.859A3.576,3.576,0,0,0,36.908,70.287ZM13.1,65.127H25V62.746H13.1Zm0,14.287H25V77.033H13.1Zm0-7.143H27.383V69.889H13.1Z"
+          transform="translate(0 -56)" fill="#fff" fill-rule="evenodd" />
+      </svg>
+      Inbox</p>
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="40.479" height="36.037"
+        viewBox="0 0 40.479 36.037">
+        <path id="check-plus"
+          d="M36.037,123.019v18.018H7.206V124.218h2.4v14.417H33.635V123.019ZM38.8,111.948l1.679,1.72L23.663,130.105l-7.685-7.517,1.679-1.715,6.006,5.871ZM9.609,105v7.209h7.209v2.4H9.609v7.2h-2.4v-7.2H0v-2.4H7.207V105Zm22.823,7.208v2.4H19.22v-2.4Z"
+          transform="translate(0 -105)" fill="#fff" fill-rule="evenodd" />
+      </svg>
+      Add shortcut</p>
+    <p class="menuItem"><svg xmlns="http://www.w3.org/2000/svg" width="40.479" height="35.716"
+        viewBox="0 0 40.479 35.716">
+        <path id="toggle-left"
+          d="M17.858,113a17.723,17.723,0,0,1,13.832,6.584h0l-1.852,1.5a15.477,15.477,0,1,0,0,19.549h0l1.852,1.5A17.852,17.852,0,1,1,17.858,113Zm2.73,8.682,1.683,1.686-6.3,6.3H40.479v2.379H15.968l6.3,6.3-1.683,1.683-9.174-9.174Z"
+          transform="translate(0 -113)" fill="#fff" fill-rule="evenodd" />
+      </svg>
+      Logout</p>
+  </div>
+  <div class="windows">
+    <div class="brainstormWindow">
+      <div class="upperBar">
+        <p>Brainstorming - New Session</p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+          <path id="x"
+            d="M310.445,308.1l-9.655-9.655-2.345,2.345,9.655,9.655-9.655,9.655,2.345,2.345,9.655-9.655,9.655,9.655,2.345-2.345-9.655-9.655,9.655-9.655-2.345-2.345Z"
+            transform="translate(-298.445 -298.445)" />
+        </svg>
+
+      </div>
+      <button id="startButton" onclick="start()">Start Step ladder method</button>
+      <textarea id="input" rows="4" cols="50" placeholder="Type hier notities" oninput="updateNotes()"></textarea>
+      <button id="button" onclick="recall()">Recall</button>
+    </div>
+
+
+
+    <div class="meetingWindow">
+      <div class="upperBar">
+        <p>Ongoing meeting</p>
+        <p class="upperBarTime">14:56<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+            <path id="full-screen"
+              d="M14.481-.012V1.534h6.881L1.546,21.349v-6.88H0v9.519H9.519V22.442H2.639L22.454,2.627V9.508H24V-.012Z"
+              transform="translate(0 0.012)" fill-rule="evenodd" />
+          </svg>
+        </p>
+      </div>
+      <div id="users">
+        <div id="overlay"></div>
+      </div>
+    </div>
+    <div class="brainstormWindow">
+      <div class="upperBar"> Rooms </div>
+    </div>
+  </div>
+</body>
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .windows {
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 110px;
+    padding-right: 10px;
+  }
+
+  .meetingWindow {
+    margin-top: 20px;
+    width: 30%;
+    height: 50vh;
+    -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.29);
+    box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.29);
+    background-color: lightgray;
+  }
+
+  .brainstormWindow {
+    margin-top: 20px;
+    width: 30%;
+    height: 95vh;
+    -webkit-box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.29);
+    box-shadow: 0px 0px 15px 7px rgba(0, 0, 0, 0.29);
+    background-color: lightgray;
+  }
+
+  .upperBar {
+    height: 40px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .upperBarTime {
+    width: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #users {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  .menuItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .menu {
+    position: absolute;
+    padding: 0px;
+    height: 100vh;
+    width: 100px;
+    background-color: #58585B;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #overlay {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    visibility: hidden;
+  }
+
+  #input {
+    height: 100px;
+    visibility: hidden;
+  }
+
+  #button {
+    height: 50px;
+    visibility: hidden;
+  }
+
+  #startButton {
+    height: 50px;
+  }
+
+  h1 {
+    text-align: center;
+  }
+</style>
+
+</html>
